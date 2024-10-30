@@ -18,23 +18,25 @@ in both portrait and landscape configurations.
 The Activity layout files for both Portrait and Landscape are already provided
 */
 
-class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /* TODO 1: Load fragment(s)
-            - Show only Button Fragment if portrait
-            - show both fragments if Landscape
-          */
+        // Display generated number using this TextView
+        val numberDisplay = findViewById<TextView>(R.id.numberDisplay)
+
+        // Retrieve ViewModel
+        val viewModel = ViewModelProvider(this)[DiceViewModel::class.java]
+
+        viewModel.getselectednum().observe(this){
+            numberDisplay.text = it.toString()
+        }
+
+        // Fragment created using factory method and added dynamically using fragmentTransaction
+        // argument is the number of sides the die will have
+        supportFragmentManager.beginTransaction()
+            .add(R.id.diceFragmentContainer, DiceFragment.newInstance(6))
+            .commit()
     }
-
-    /* TODO 2: switch fragments if portrait (no need to switch fragments if Landscape)
-        */
-    // Remember to place Fragment transactions on BackStack so then can be reversed
-    override fun buttonClicked() {
-
-    }
-
-
 }
