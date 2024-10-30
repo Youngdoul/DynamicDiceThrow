@@ -3,16 +3,16 @@ package edu.temple.dicethrow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlin.random.Random
 
-class DieViewModel : ViewModel() {
-    private val dieRoll = MutableLiveData<Int>()
+class DiceViewModel : ViewModel() {
+    private val selectednum = MutableLiveData<Int>()
 
-    fun getDieRoll() : LiveData<Int> {
-        return dieRoll
+    fun setselectnum(number: Int){
+        selectednum.value = number
     }
 
-    fun rollDie(dieSides: Int = 6) {
-        dieRoll.value = Random.nextInt(dieSides) + 1
+    fun getselectednum(): LiveData<Int>{
+        return selectednum
     }
+    
 }
